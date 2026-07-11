@@ -2,92 +2,177 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>Manifold Dashboard</title>
+    <title>Source Oxygen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        body { 
-            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0369a1 100%); 
-            text-align: center; 
-            margin: 0; 
-            padding: 30px 10px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
+        body {
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a; 
+            text-align: center;
+            margin: 0;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             box-sizing: border-box;
+            transition: background-color 0.3s ease;
         }
 
-        .container { 
-            width: 100%; 
-            max-width: 450px; 
-            background: rgba(255, 255, 255, 0.06); 
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            padding: 40px 25px; 
-            border-radius: 30px; 
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4); 
+        .dashboard-wrapper {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; 
+            gap: 12px;
         }
 
-        h2 { 
-            color: #38bdf8; 
-            margin: 0 0 8px 0; 
-            font-size: 26px; 
-            font-weight: 700; 
+        .container {
+            width: 100%;
+            background-color: #151f32; 
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
         }
 
-        .subtitle { 
-            color: #94a3b8; 
-            font-size: 14px; 
-            margin-bottom: 35px; 
-        }
-        
-        .card { 
-            background: linear-gradient(135deg, rgba(2, 136, 209, 0.25), rgba(0, 86, 145, 0.4)); 
-            padding: 40px 25px; 
-            border-radius: 24px; 
-            color: white; 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
+        h2 {
+            color: #38bdf8;
+            margin: 0 0 8px 0;
+            font-size: 24px;
+            font-weight: 700;
+            transition: color 0.3s ease;
         }
 
-        .label { 
-            font-size: 12px; 
-            letter-spacing: 2px; 
-            margin-bottom: 25px; 
+        .subtitle {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 35px;
+            transition: color 0.3s ease;
+        }
+       
+        .card {
+            background: linear-gradient(135deg, rgba(2, 136, 209, 0.2), rgba(0, 86, 145, 0.35));
+            padding: 40px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
             color: #bae6fd;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
 
-        .value { 
-            font-size: 64px; 
-            font-weight: 800; 
-            text-align: center; 
-            margin-bottom: 30px; 
+        .value {
+            font-size: 58px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #ffffff; 
+            transition: color 0.3s ease;
         }
 
         .status-box {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 10px 24px;
             border-radius: 50px;
             display: inline-block;
             font-size: 14px;
             font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            background: rgba(30, 41, 59, 0.7);
+            color: #ffffff;
+            border: 1px solid #eab308; 
+            padding: 6px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.03);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        body.light-mode {
+            background-color: #f1f5f9;
+        }
+
+        body.light-mode .container {
+            background-color: #ffffff;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        body.light-mode h2 {
+            color: #0288d1;
+        }
+
+        body.light-mode .subtitle {
+            color: #64748b;
+        }
+
+        body.light-mode .card {
+            background: linear-gradient(135deg, #f8fafc, #edf2f7);
+            border: 1px solid rgba(2, 136, 209, 0.15);
+        }
+
+        body.light-mode .label {
+            color: #0288d1;
+        }
+
+        body.light-mode .value {
+            color: #0f172a; 
+        }
+
+        body.light-mode .status-box {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .theme-toggle {
+            background: #ffffff;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>แรงดัน Oxygen ต้นทาง</h2>
-        <div class="subtitle">ระบบมอนิเตอร์ค่าแรงดันก๊าซ</div>
+
+    <div class="dashboard-wrapper">
         
-        <div class="card">
-            <div class="label">OXYGEN PRESSURE</div>
-            <div class="value" id="ox_val">--.- PSI</div>
-            <div id="status_text" class="status-box">กำลังโหลด...</div>
+        <button id="theme-btn" class="theme-toggle">
+            <span id="theme-icon">🟡</span> <span id="theme-text">โหมดสว่าง</span>
+        </button>
+
+        <div class="container">
+            <h2>แรงดัน Oxygen ต้นทาง</h2>
+            <div class="subtitle">ระบบมอนิเตอร์ค่าแรงดันก๊าซ ซ้าย-ขวา</div>
+           
+            <div class="card">
+                <div class="label">OXYGEN PRESSURE</div>
+                <div class="value" id="ox_val">--.- PSI</div>
+                <div id="status_text" class="status-box">กำลังโหลด...</div>
+            </div>
         </div>
+
     </div>
 
 <script type="module">
@@ -108,25 +193,53 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ✅ IMPORTANT: ต้องตรงกับ ESP32 = data
-onValue(ref(db, "data"), (snapshot) => {
+function updateStatusColor(psi) {
+    const status = document.getElementById("status_text");
+    if (!status || status.innerText === "กำลังโหลด...") return;
 
+    if (psi < 49) {
+        status.style.color = "#ef4444"; 
+    } else {
+        const isLight = document.body.classList.contains("light-mode");
+        status.style.color = isLight ? "#16a34a" : "#4ade80"; 
+    }
+}
+
+let currentPsi = 0;
+
+onValue(ref(db, "data"), (snapshot) => {
     const data = snapshot.val();
     if (!data) return;
 
-    let psi = Number(data.pressure || 0);
-
-    document.getElementById("ox_val").innerText = psi.toFixed(1) + " PSI";
+    currentPsi = Number(data.pressure || 0);
+    document.getElementById("ox_val").innerText = currentPsi.toFixed(1) + " PSI";
 
     let status = document.getElementById("status_text");
-
-    if (psi < 49) {
-        status.innerText = "⚠️ แรงดันต่ำ";
-        status.style.color = "#ff6b6b";
+    if (currentPsi < 49) {
+        status.innerText = "⚠️ ผิดปกติ";
     } else {
         status.innerText = "✅ ปกติ";
-        status.style.color = "#2ecc71";
     }
+
+    updateStatusColor(currentPsi);
+});
+
+const themeBtn = document.getElementById("theme-btn");
+const themeIcon = document.getElementById("theme-icon");
+const themeText = document.getElementById("theme-text");
+
+themeBtn.addEventListener("click", () => {
+    const isLight = document.body.classList.toggle("light-mode");
+    
+    if (isLight) {
+        themeIcon.innerText = "🔵";
+        themeText.innerText = "โหมดมืด";
+    } else {
+        themeIcon.innerText = "🟡";
+        themeText.innerText = "โหมดสว่าง";
+    }
+    
+    updateStatusColor(currentPsi);
 });
 
 </script>
